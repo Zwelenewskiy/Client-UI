@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.B_SendMsg = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.B_SendFoto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,15 +43,15 @@
             this.textBox1.Size = new System.Drawing.Size(285, 90);
             this.textBox1.TabIndex = 0;
             // 
-            // button1
+            // B_SendMsg
             // 
-            this.button1.Location = new System.Drawing.Point(31, 408);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Отправить текст";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.B_SendMsg.Location = new System.Drawing.Point(31, 408);
+            this.B_SendMsg.Name = "B_SendMsg";
+            this.B_SendMsg.Size = new System.Drawing.Size(107, 23);
+            this.B_SendMsg.TabIndex = 1;
+            this.B_SendMsg.Text = "Отправить текст";
+            this.B_SendMsg.UseVisualStyleBackColor = true;
+            this.B_SendMsg.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -63,26 +63,27 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // button2
+            // B_SendFoto
             // 
-            this.button2.Location = new System.Drawing.Point(173, 408);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Отправить фото";
-            this.button2.UseVisualStyleBackColor = true;
+            this.B_SendFoto.Location = new System.Drawing.Point(173, 408);
+            this.B_SendFoto.Name = "B_SendFoto";
+            this.B_SendFoto.Size = new System.Drawing.Size(107, 23);
+            this.B_SendFoto.TabIndex = 3;
+            this.B_SendFoto.Text = "Отправить фото";
+            this.B_SendFoto.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 435);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.B_SendFoto);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.B_SendMsg);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -92,9 +93,9 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button B_SendMsg;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button B_SendFoto;
     }
 }
 

@@ -34,6 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.TSSL_ID = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TSSL_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_SendReport = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +84,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TSSL_ID});
+            this.TSSL_ID,
+            this.TSSL_Status});
             this.statusStrip1.Location = new System.Drawing.Point(0, 439);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(309, 22);
@@ -95,6 +97,12 @@
             this.TSSL_ID.Name = "TSSL_ID";
             this.TSSL_ID.Size = new System.Drawing.Size(48, 17);
             this.TSSL_ID.Text = "Ваш ID:";
+            // 
+            // TSSL_Status
+            // 
+            this.TSSL_Status.Name = "TSSL_Status";
+            this.TSSL_Status.Size = new System.Drawing.Size(147, 17);
+            this.TSSL_Status.Text = "Подключение к серверу: ";
             // 
             // menuStrip1
             // 
@@ -118,14 +126,14 @@
             // TSMI_SendReport
             // 
             this.TSMI_SendReport.Name = "TSMI_SendReport";
-            this.TSMI_SendReport.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_SendReport.Size = new System.Drawing.Size(132, 22);
             this.TSMI_SendReport.Text = "Отправить";
             this.TSMI_SendReport.Click += new System.EventHandler(this.TSMI_SendReport_Click);
             // 
             // TSMI_GetReport
             // 
             this.TSMI_GetReport.Name = "TSMI_GetReport";
-            this.TSMI_GetReport.Size = new System.Drawing.Size(180, 22);
+            this.TSMI_GetReport.Size = new System.Drawing.Size(132, 22);
             this.TSMI_GetReport.Text = "Получить";
             // 
             // Form1
@@ -166,6 +174,7 @@
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TSMI_SendReport;
         private System.Windows.Forms.ToolStripMenuItem TSMI_GetReport;
+        private System.Windows.Forms.ToolStripStatusLabel TSSL_Status;
     }
 }
 

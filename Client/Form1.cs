@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-
+using System.Threading;
 
 namespace Client
 {
@@ -22,12 +22,17 @@ namespace Client
             P2 = p2;
         }
     }
+       
 
     public partial class Form1 : Form
     {
-        public static string HOST = "http://localhost:8888/connection/";
-        public static string Id = null, answer;
+        public static string HOST = "http://localhost:8888/connection/", Id = null, answer;
         public static Client client = new Client();
+
+        public ToolStripStatusLabel getTSSL_ID()
+        {
+            return TSSL_ID;
+        }
 
         public Form1()
         {
@@ -47,8 +52,9 @@ namespace Client
             client.Request(HOST, JsonConvert.SerializeObject(new Report(0, "", "", "", "")));
             Id = client.Response();
             client.SetId(Convert.ToInt32(Id));
-
             TSSL_ID.Text = "Ваш ID: "+ Id;
+
+            var timer = new System.Threading.Timer(new TimerCallback(Program.Count), null, 0, 5000);
         }
 
         private void TSMI_SendReport_Click(object sender, EventArgs e)
@@ -61,7 +67,7 @@ namespace Client
         {
             client.Request(HOST, JsonConvert.SerializeObject(new Report(4, Id, "", "", "")));
         }
-    }
+    }    
 
     /// <summary> 
     /// Определяет методы для работы клиента 

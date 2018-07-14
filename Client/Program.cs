@@ -6,6 +6,8 @@ namespace Client
 {
     static class Program
     {
+        private static Form1 _mainForm;
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -14,20 +16,28 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            _mainForm = new Form1();
+            Application.Run(_mainForm);
         }
 
-        public static void Count(object obj)
+        public static void Check(object obj)
         {
             Form1.client.Request(Form1.HOST, JsonConvert.SerializeObject(new Report(5, 
-                Form1.Id, "", "", "")));
+                Form1.Id, "", "", "", null, "", null)));
 
-            if (JsonConvert.DeserializeObject<Report>(Form1.client.Response()).Id == Form1.Id)
+
+            try
             {
-                //MessageBox.Show("Проверка успешно прошла");
-                
-            }              
-               
+                if (JsonConvert.DeserializeObject<Report>(Form1.client.Response()).Id == Form1.Id)
+                {
+                   _mainForm.SetTsslText("Подключение к серверу: есть");                    
+                }
+            }
+            catch
+            {
+                _mainForm.SetTsslTextColor(System.Drawing.Color.Red);
+                _mainForm.SetTsslText("Подключение к серверу: отсутсвует");
+            }                           
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -12,11 +14,10 @@ namespace Client
     {
         public int Command;
         public string Id, P, P1, P2, ImgName;
-        public System.Drawing.Imaging.ImageFormat Format;
-        public System.Drawing.Image Image;
+        public ImageFormat Format;
+        public byte[] Image;
 
-        public Report(int com, string id, string p, string p1, string p2, 
-            System.Drawing.Imaging.ImageFormat format, string name, System.Drawing.Image img)
+        public Report(int com, string id, string p, string p1, string p2, ImageFormat format, string name, byte[] img)
         {
             Command = com;
             Id = id;
@@ -35,7 +36,7 @@ namespace Client
         public static string HOST = "http://localhost:8888/connection/", Id = null, answer;
         public static Client client = new Client();
         public string ImgNameTmp = null;
-        System.Drawing.Imaging.ImageFormat FormatTmp = null;
+        public static bool Disconnected = false;
                     
         public Form1()
         {
@@ -47,7 +48,7 @@ namespace Client
             TSSL_Status.Text = text;
         }
 
-        public void SetTsslTextColor(System.Drawing.Color Color)
+        public void SetTsslTextColor(Color Color)
         {
             TSSL_Status.ForeColor = Color;
         }
@@ -74,7 +75,14 @@ namespace Client
         {
             if (PictBox1.Image != null)
             {
-                client.Request(HOST, JsonConvert.SerializeObject(new Report(6, Id, "", "", "", FormatTmp, ImgNameTmp, PictBox1.Image)));
+                using(var ms = new MemoryStream())
+                {
+                    PictBox1.Image.Save(ms, PictBox1.Image.RawFormat);
+
+                    client.Request(HOST, JsonConvert.SerializeObject(new Report(6, Id, "", "", "",
+                         PictBox1.Image.RawFormat, "", ms.ToArray())));
+                }
+
                 MessageBox.Show(client.Response());
             }
             else
@@ -87,18 +95,25 @@ namespace Client
 
             if (OFD1.ShowDialog() == DialogResult.OK)
             {
-                PictBox1.Image = new System.Drawing.Bitmap(OFD1.FileName);
+                /*using (var fStream = new FileStream(OFD1.FileName, FileMode.Open))
+                {
+                    PictBox1.Image = Image.FromStream(fStream);
+                }*/
 
-                FormatTmp = PictBox1.Image.RawFormat;
+                PictBox1.Image = new Bitmap(OFD1.FileName);
+
                 ImgNameTmp = OFD1.FileName;
             }
-
+            else return;
         }
 
         private void B_GetFoto_Click(object sender, EventArgs e)
         {
-            //client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null)));
-            //PictBox1.Image = JsonConvert.DeserializeObject<Report>(client.Response()).Image;
+            client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
+
+            using(var ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image)){
+                PictBox1.Image = Image.FromStream(ms);
+            }
 
         }
 
@@ -110,7 +125,8 @@ namespace Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            client.Request(HOST, JsonConvert.SerializeObject(new Report(4, Id, "", "", "", null, "", null)));
+            if(!Disconnected)
+                client.Request(HOST, JsonConvert.SerializeObject(new Report(4, Id, "", "", "", null, "", null)));
         }
     }    
 

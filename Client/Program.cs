@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Client
 {
@@ -30,14 +33,24 @@ namespace Client
             {
                 if (JsonConvert.DeserializeObject<Report>(Form1.client.Response()).Id == Form1.Id)
                 {
-                   _mainForm.SetTsslText("Подключение к серверу: есть");                    
+                    _mainForm.SetTsslTextColor(Color.Green);
+                    _mainForm.SetTsslText("Подключение к серверу: есть");                    
                 }
             }
             catch
             {
-                _mainForm.SetTsslTextColor(System.Drawing.Color.Red);
+                _mainForm.SetTsslTextColor(Color.Red);
                 _mainForm.SetTsslText("Подключение к серверу: отсутсвует");
-            }                           
+                Form1.Disconnected = true;
+            }                    
+        }
+
+        public static Image ByteArrayToImage(byte[] img)
+        {
+            using (var ms = new MemoryStream(img))
+            {
+                return System.Drawing.Image.FromStream(ms);
+            }
         }
     }
 }

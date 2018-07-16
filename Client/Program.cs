@@ -24,7 +24,7 @@ namespace Client
         }
 
         public static void Check(object obj)
-        {
+        {        
             Form1.client.Request(Form1.HOST, JsonConvert.SerializeObject(new Report(5, 
                 Form1.Id, "", "", "", null, "", null)));
 
@@ -42,15 +42,9 @@ namespace Client
                 _mainForm.SetTsslTextColor(Color.Red);
                 _mainForm.SetTsslText("Подключение к серверу: отсутсвует");
                 Form1.Disconnected = true;
-            }                    
-        }
-
-        public static Image ByteArrayToImage(byte[] img)
-        {
-            using (var ms = new MemoryStream(img))
-            {
-                return System.Drawing.Image.FromStream(ms);
             }
+
+            //MessageBox.Show("Check!");
         }
     }
 }

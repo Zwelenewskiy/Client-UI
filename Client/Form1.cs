@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Linq;
 
 namespace Client
 {
@@ -37,6 +38,7 @@ namespace Client
         public static Client client = new Client();
         public string ImgNameTmp = null;
         public static bool Disconnected = false;
+        public MemoryStream ms;
                     
         public Form1()
         {
@@ -68,17 +70,16 @@ namespace Client
             client.SetId(Convert.ToInt32(Id));
             TSSL_ID.Text = "Ваш ID: "+ Id;
 
-            var timer = new System.Threading.Timer(new TimerCallback(Program.Check), null, 0, 5000);
+            var timer = new System.Threading.Timer(new TimerCallback(Program.Check), null, 0, 5000);            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (PictBox1.Image != null)
             {
-                using(var ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
                     PictBox1.Image.Save(ms, PictBox1.Image.RawFormat);
-
                     client.Request(HOST, JsonConvert.SerializeObject(new Report(6, Id, "", "", "",
                          PictBox1.Image.RawFormat, "", ms.ToArray())));
                 }
@@ -86,7 +87,7 @@ namespace Client
                 MessageBox.Show(client.Response());
             }
             else
-                MessageBox.Show("Изображние отсутствует");            
+                MessageBox.Show("Изображение отсутствует");            
         }
 
         private void PictBox1_Click(object sender, EventArgs e)
@@ -95,11 +96,6 @@ namespace Client
 
             if (OFD1.ShowDialog() == DialogResult.OK)
             {
-                /*using (var fStream = new FileStream(OFD1.FileName, FileMode.Open))
-                {
-                    PictBox1.Image = Image.FromStream(fStream);
-                }*/
-
                 PictBox1.Image = new Bitmap(OFD1.FileName);
 
                 ImgNameTmp = OFD1.FileName;
@@ -111,10 +107,13 @@ namespace Client
         {
             client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
 
-            using(var ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image)){
-                PictBox1.Image = Image.FromStream(ms);
-            }
-
+            ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image);
+            PictBox1.Image = Image.FromStream(ms);
+        }
+        
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            PictBox1.Image = null;
         }
 
         private void TSMI_SendReport_Click(object sender, EventArgs e)

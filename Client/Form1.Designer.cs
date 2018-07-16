@@ -41,6 +41,7 @@
             this.TSMI_GetReport = new System.Windows.Forms.ToolStripMenuItem();
             this.OFD1 = new System.Windows.Forms.OpenFileDialog();
             this.B_GetFoto = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -146,19 +147,30 @@
             // 
             // B_GetFoto
             // 
-            this.B_GetFoto.Location = new System.Drawing.Point(97, 437);
+            this.B_GetFoto.Location = new System.Drawing.Point(82, 438);
             this.B_GetFoto.Name = "B_GetFoto";
-            this.B_GetFoto.Size = new System.Drawing.Size(107, 23);
+            this.B_GetFoto.Size = new System.Drawing.Size(151, 23);
             this.B_GetFoto.TabIndex = 6;
-            this.B_GetFoto.Text = "Получить фото";
+            this.B_GetFoto.Text = "Получить последнее фото";
             this.B_GetFoto.UseVisualStyleBackColor = true;
             this.B_GetFoto.Click += new System.EventHandler(this.B_GetFoto_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(262, 437);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 486);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.B_GetFoto);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -196,6 +208,7 @@
         private System.Windows.Forms.ToolStripStatusLabel TSSL_Status;
         private System.Windows.Forms.OpenFileDialog OFD1;
         private System.Windows.Forms.Button B_GetFoto;
+        private System.Windows.Forms.Button button1;
     }
 }
 

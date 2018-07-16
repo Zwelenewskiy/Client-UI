@@ -34,8 +34,7 @@
             this.TB_P2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TB_P1 = new System.Windows.Forms.TextBox();
-            this.B_SendRerort = new System.Windows.Forms.Button();
-            this.B_GetLastReport = new System.Windows.Forms.Button();
+            this.B_Report = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TB_P
@@ -50,18 +49,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(61, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "1-й параметр";
+            this.label1.Text = "1-й параметр:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(61, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "3-й параметр";
+            this.label2.Text = "3-й параметр:";
             // 
             // TB_P2
             // 
@@ -75,9 +74,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(61, 44);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "2-й параметр";
+            this.label3.Text = "2-й параметр:";
             // 
             // TB_P1
             // 
@@ -86,41 +85,35 @@
             this.TB_P1.Size = new System.Drawing.Size(72, 20);
             this.TB_P1.TabIndex = 4;
             // 
-            // B_SendRerort
+            // B_Report
             // 
-            this.B_SendRerort.Location = new System.Drawing.Point(44, 117);
-            this.B_SendRerort.Name = "B_SendRerort";
-            this.B_SendRerort.Size = new System.Drawing.Size(75, 23);
-            this.B_SendRerort.TabIndex = 6;
-            this.B_SendRerort.Text = "Отправить";
-            this.B_SendRerort.UseVisualStyleBackColor = true;
-            this.B_SendRerort.Click += new System.EventHandler(this.B_SendRerort_Click);
-            // 
-            // B_GetLastReport
-            // 
-            this.B_GetLastReport.Location = new System.Drawing.Point(159, 117);
-            this.B_GetLastReport.Name = "B_GetLastReport";
-            this.B_GetLastReport.Size = new System.Drawing.Size(75, 23);
-            this.B_GetLastReport.TabIndex = 7;
-            this.B_GetLastReport.Text = "Получитть";
-            this.B_GetLastReport.UseVisualStyleBackColor = true;
-            this.B_GetLastReport.Click += new System.EventHandler(this.B_GetLastReport_Click);
+            this.B_Report.Location = new System.Drawing.Point(89, 108);
+            this.B_Report.Name = "B_Report";
+            this.B_Report.Size = new System.Drawing.Size(90, 23);
+            this.B_Report.TabIndex = 6;
+            this.B_Report.Text = "button1";
+            this.B_Report.UseVisualStyleBackColor = true;
+            this.B_Report.Click += new System.EventHandler(this.B_Report_Click);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 152);
-            this.Controls.Add(this.B_GetLastReport);
-            this.Controls.Add(this.B_SendRerort);
+            this.ClientSize = new System.Drawing.Size(284, 137);
+            this.Controls.Add(this.B_Report);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.TB_P1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TB_P2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TB_P);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(300, 175);
+            this.MinimumSize = new System.Drawing.Size(300, 175);
             this.Name = "ReportForm";
-            this.Text = "Report";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Отчет";
+            this.Load += new System.EventHandler(this.ReportForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,7 +127,6 @@
         private System.Windows.Forms.TextBox TB_P2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TB_P1;
-        private System.Windows.Forms.Button B_SendRerort;
-        private System.Windows.Forms.Button B_GetLastReport;
+        private System.Windows.Forms.Button B_Report;
     }
 }

@@ -132,15 +132,16 @@
             // TSMI_SendReport
             // 
             this.TSMI_SendReport.Name = "TSMI_SendReport";
-            this.TSMI_SendReport.Size = new System.Drawing.Size(132, 22);
+            this.TSMI_SendReport.Size = new System.Drawing.Size(180, 22);
             this.TSMI_SendReport.Text = "Отправить";
             this.TSMI_SendReport.Click += new System.EventHandler(this.TSMI_SendReport_Click);
             // 
             // TSMI_GetReport
             // 
             this.TSMI_GetReport.Name = "TSMI_GetReport";
-            this.TSMI_GetReport.Size = new System.Drawing.Size(132, 22);
+            this.TSMI_GetReport.Size = new System.Drawing.Size(180, 22);
             this.TSMI_GetReport.Text = "Получить";
+            this.TSMI_GetReport.Click += new System.EventHandler(this.TSMI_GetReport_Click);
             // 
             // OFD1
             // 
@@ -178,7 +179,7 @@
             this.MaximumSize = new System.Drawing.Size(325, 525);
             this.MinimumSize = new System.Drawing.Size(325, 525);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Клиент пользователя";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PictBox1)).EndInit();

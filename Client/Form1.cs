@@ -35,6 +35,7 @@ namespace Client
         public static Client client = new Client();
         public static bool Disconnected = false;
         public MemoryStream ms;
+        public static byte OpenMode;
                     
         public Form1()
         {
@@ -53,7 +54,6 @@ namespace Client
         {
             client.Request(HOST, JsonConvert.SerializeObject(new Report(0, "", "", "", "", null, "", null)));
             Id = client.Response();
-            client.SetId(Convert.ToInt32(Id));
             TSSL_ID.Text = "Ваш ID: "+ Id;
 
             timer1.Start();
@@ -115,8 +115,16 @@ namespace Client
             }
         }
 
+        private void TSMI_GetReport_Click(object sender, EventArgs e)
+        {
+            OpenMode = 2;
+            var RepForm = new ReportForm();
+            RepForm.Show();
+        }
+
         private void TSMI_SendReport_Click(object sender, EventArgs e)
         {
+            OpenMode = 1;
             var RepForm = new ReportForm();
             RepForm.Show();
         }
@@ -135,7 +143,6 @@ namespace Client
     /// </summary> 
     public class Client
     {
-        private int id = -1;
         static private HttpWebRequest req;
         private HttpWebResponse resp;
 
@@ -151,7 +158,7 @@ namespace Client
             try
             {
                 req = (HttpWebRequest)HttpWebRequest.Create(host);//запрос 
-                req.Method = "POST";
+                req.Method = "POST"; 
 
                 byte[] dataArray = Encoding.UTF8.GetBytes(text);
                 req.ContentType = "application/x-www-form-urlencoded";
@@ -204,11 +211,6 @@ namespace Client
                 Console.WriteLine(ex);
                 return null;
             }
-        }
-
-        public void SetId(int ID)
-        {
-            id = ID;
         }
     }
       

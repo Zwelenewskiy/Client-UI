@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TB_Message = new System.Windows.Forms.TextBox();
             this.B_SendMessage = new System.Windows.Forms.Button();
             this.PictBox1 = new System.Windows.Forms.PictureBox();
@@ -41,7 +42,7 @@
             this.TSMI_GetReport = new System.Windows.Forms.ToolStripMenuItem();
             this.OFD1 = new System.Windows.Forms.OpenFileDialog();
             this.B_GetFoto = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PictBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -91,7 +92,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TSSL_ID,
             this.TSSL_Status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 464);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 465);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(309, 22);
             this.statusStrip1.TabIndex = 4;
@@ -155,22 +156,16 @@
             this.B_GetFoto.UseVisualStyleBackColor = true;
             this.B_GetFoto.Click += new System.EventHandler(this.B_GetFoto_Click);
             // 
-            // button1
+            // timer1
             // 
-            this.button1.Location = new System.Drawing.Point(262, 437);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 486);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(309, 487);
             this.Controls.Add(this.B_GetFoto);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -179,6 +174,9 @@
             this.Controls.Add(this.B_SendMessage);
             this.Controls.Add(this.TB_Message);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(325, 525);
+            this.MinimumSize = new System.Drawing.Size(325, 525);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -208,7 +206,7 @@
         private System.Windows.Forms.ToolStripStatusLabel TSSL_Status;
         private System.Windows.Forms.OpenFileDialog OFD1;
         private System.Windows.Forms.Button B_GetFoto;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

@@ -6,8 +6,6 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using System.Threading;
-using System.Linq;
 
 namespace Client
 {
@@ -29,30 +27,18 @@ namespace Client
             Image = img;
             Format = format;
         }
-    }
-       
+    }       
 
     public partial class Form1 : Form
     {
         public static string HOST = "http://localhost:8888/connection/", Id = null, answer;
         public static Client client = new Client();
-        public string ImgNameTmp = null;
         public static bool Disconnected = false;
         public MemoryStream ms;
                     
         public Form1()
         {
             InitializeComponent();
-        }
-
-        public void SetTsslText(string text)
-        {
-            TSSL_Status.Text = text;
-        }
-
-        public void SetTsslTextColor(Color Color)
-        {
-            TSSL_Status.ForeColor = Color;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,7 +56,7 @@ namespace Client
             client.SetId(Convert.ToInt32(Id));
             TSSL_ID.Text = "Ваш ID: "+ Id;
 
-            var timer = new System.Threading.Timer(new TimerCallback(Program.Check), null, 0, 5000);            
+            timer1.Start();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -97,8 +83,6 @@ namespace Client
             if (OFD1.ShowDialog() == DialogResult.OK)
             {
                 PictBox1.Image = new Bitmap(OFD1.FileName);
-
-                ImgNameTmp = OFD1.FileName;
             }
             else return;
         }
@@ -106,14 +90,29 @@ namespace Client
         private void B_GetFoto_Click(object sender, EventArgs e)
         {
             client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
-
+            
             ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image);
             PictBox1.Image = Image.FromStream(ms);
         }
-        
-        private void button1_Click_1(object sender, EventArgs e)
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            PictBox1.Image = null;
+            client.Request(HOST, JsonConvert.SerializeObject(new Report(5, Id, "", "", "", null, "", null)));
+
+            try
+            {
+                if (JsonConvert.DeserializeObject<Report>(client.Response()).Id == Id)
+                {
+                    TSSL_Status.ForeColor = Color.Green;
+                    TSSL_Status.Text = "Подключение к серверу: есть";
+                }
+            }
+            catch
+            {
+                Disconnected = true;
+                TSSL_Status.ForeColor = Color.Red;
+                TSSL_Status.Text = "Подключение к серверу: отсутствует";
+            }
         }
 
         private void TSMI_SendReport_Click(object sender, EventArgs e)
@@ -124,6 +123,8 @@ namespace Client
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timer1.Stop();
+
             if(!Disconnected)
                 client.Request(HOST, JsonConvert.SerializeObject(new Report(4, Id, "", "", "", null, "", null)));
         }

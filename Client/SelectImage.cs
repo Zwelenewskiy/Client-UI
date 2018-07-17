@@ -37,10 +37,18 @@ namespace Client
 
         private void SelectImage_Load(object sender, EventArgs e)
         {
-            Form1.client.Request(Form1.HOST, JsonConvert.SerializeObject(new Report(8, Form1.Id, "", "", "",
+            Form1.client.Request(Form1.HOST, JsonConvert.SerializeObject(new Report(7, Form1.Id, "", "", "",
                 null, null, null)));
 
             ImagesArray = JsonConvert.DeserializeObject<Images>(Form1.client.Response());
+
+            if(ImagesArray.images.Count == 0)
+            {
+                MessageBox.Show("Список изображений пуст");
+                Close();
+                return;
+            }
+
             for(int i = 0; i < ImagesArray.images.Count; i++)
             {
                 DGV_Images.Rows.Add(ImagesArray.images[i].name, ImagesArray.images[i].size);

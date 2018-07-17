@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.Drawing;
-using System.Threading;
 
 namespace Client
 {
     static class Program
     {
+        public static Form1 F1;
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -16,7 +15,8 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            F1 = new Form1();
+            Application.Run(F1);
         }
     }
 }

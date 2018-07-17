@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -28,19 +29,7 @@ namespace Client
             Format = format;
         }
     }
-
-    struct Image
-    {
-        string name;
-        byte[] image;
-
-        public Image(string n, byte[] img)
-        {
-            name = n;
-            image = img;
-        }
-    }
-
+    
     public partial class Form1 : Form
     {
         public static string HOST = "http://localhost:8888/connection/", Id = null, answer;
@@ -48,10 +37,18 @@ namespace Client
         public static bool Disconnected = false;
         public MemoryStream ms;
         public static byte OpenMode;
-                    
+        
+
+        List<Image> images = new List<Image>();
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        public void SetImage(System.Drawing.Image image)
+        {
+            PictBox1.Image = image;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,6 +64,24 @@ namespace Client
             client.Request(HOST, JsonConvert.SerializeObject(new Report(0, "", "", "", "", null, "", null)));
             Id = client.Response();
             TSSL_ID.Text = "Ваш ID: "+ Id;
+
+            client.Request(HOST, JsonConvert.SerializeObject(new Report(5, Id, "", "", "", null, "", null)));
+
+            try
+            {
+                if (JsonConvert.DeserializeObject<Report>(client.Response()).Id == Id)
+                {
+                    TSSL_Status.ForeColor = Color.Green;
+                    TSSL_Status.Text = "Подключение к серверу: есть";
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Подключение к серверу отсутствует");
+                Disconnected = true;
+                TSSL_Status.ForeColor = Color.Red;
+                TSSL_Status.Text = "Подключение к серверу: отсутствует";
+            }
 
             timer1.Start();
         }
@@ -101,25 +116,24 @@ namespace Client
 
         private void B_GetFoto_Click(object sender, EventArgs e)
         {
-            /*client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
-            
-            ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image);
-            PictBox1.Image = Image.FromStream(ms);*/
-
-            //new SelectImage().Show();
-
-            client.Request(HOST, JsonConvert.SerializeObject(new Report(8, Id, "", "", "", null, "", null)));
-
+            new SelectImage().Show();            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
-        {
-            client.Request(HOST, JsonConvert.SerializeObject(new Report(5, Id, "", "", "", null, "", null)));
-
+        {     
+            if(Id == null)
+            {
+                client.Request(HOST, JsonConvert.SerializeObject(new Report(0, "", "", "", "", null, "", null)));
+                Id = client.Response();
+            }
+            
             try
             {
+                client.Request(HOST, JsonConvert.SerializeObject(new Report(5, Id, "", "", "", null, "", null)));
+
                 if (JsonConvert.DeserializeObject<Report>(client.Response()).Id == Id)
                 {
+                    Disconnected = false;
                     TSSL_Status.ForeColor = Color.Green;
                     TSSL_Status.Text = "Подключение к серверу: есть";
                 }
@@ -137,6 +151,12 @@ namespace Client
             OpenMode = 2;
             var RepForm = new ReportForm();
             RepForm.Show();
+        }
+
+        private void TB_Message_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                button1_Click(this, e);
         }
 
         private void TSMI_SendReport_Click(object sender, EventArgs e)
@@ -188,16 +208,12 @@ namespace Client
                         dataStream.Write(dataArray, 0, dataArray.Length);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                catch
+                {}
 
             }
-            catch (WebException ex)
-            {
-                Console.WriteLine(ex);
-            }
+            catch
+            {}
         }
 
         /// <summary> 
@@ -209,9 +225,8 @@ namespace Client
             {
                 resp = (HttpWebResponse)req.GetResponse();//ответ 
             }
-            catch (WebException ex)
+            catch 
             {
-                Console.WriteLine(ex);
                 return null;
             }
 
@@ -223,9 +238,8 @@ namespace Client
                     return stream.ReadToEnd();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex);
                 return null;
             }
         }

@@ -27,7 +27,19 @@ namespace Client
             Image = img;
             Format = format;
         }
-    }       
+    }
+
+    struct Image
+    {
+        string name;
+        byte[] image;
+
+        public Image(string n, byte[] img)
+        {
+            name = n;
+            image = img;
+        }
+    }
 
     public partial class Form1 : Form
     {
@@ -89,10 +101,15 @@ namespace Client
 
         private void B_GetFoto_Click(object sender, EventArgs e)
         {
-            client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
+            /*client.Request(HOST, JsonConvert.SerializeObject(new Report(7, Id, "", "", "", null, "", null)));
             
             ms = new MemoryStream(JsonConvert.DeserializeObject<Report>(client.Response()).Image);
-            PictBox1.Image = Image.FromStream(ms);
+            PictBox1.Image = Image.FromStream(ms);*/
+
+            //new SelectImage().Show();
+
+            client.Request(HOST, JsonConvert.SerializeObject(new Report(8, Id, "", "", "", null, "", null)));
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)

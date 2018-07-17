@@ -46,6 +46,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.PictBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.B_SendMsg = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.B_SendFoto = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // TB_Message
@@ -66,6 +71,15 @@
             this.B_SendMessage.Text = "Отправить текст";
             this.B_SendMessage.UseVisualStyleBackColor = true;
             this.B_SendMessage.Click += new System.EventHandler(this.button1_Click);
+            // B_SendMsg
+            // 
+            this.B_SendMsg.Location = new System.Drawing.Point(31, 408);
+            this.B_SendMsg.Name = "B_SendMsg";
+            this.B_SendMsg.Size = new System.Drawing.Size(107, 23);
+            this.B_SendMsg.TabIndex = 1;
+            this.B_SendMsg.Text = "Отправить текст";
+            this.B_SendMsg.UseVisualStyleBackColor = true;
+            this.B_SendMsg.Click += new System.EventHandler(this.button1_Click);
             // 
             // PictBox1
             // 
@@ -188,13 +202,21 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.ClientSize = new System.Drawing.Size(309, 435);
+            this.Controls.Add(this.B_SendFoto);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.B_SendMsg);
+            this.Controls.Add(this.textBox1);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.TextBox TB_Message;
         private System.Windows.Forms.Button B_SendMessage;
         private System.Windows.Forms.PictureBox PictBox1;
@@ -209,6 +231,10 @@
         private System.Windows.Forms.OpenFileDialog OFD1;
         private System.Windows.Forms.Button B_GetFoto;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button B_SendMsg;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button B_SendFoto;
     }
 }
 
